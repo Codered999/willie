@@ -32,6 +32,9 @@ def get_rate(code):
     elif code == 'BTC':
         rates = json.loads(web.get('https://api.bitcoinaverage.com/ticker/all'))
         return 1 / rates['CAD']['24h_avg'], 'Bitcoin—24hr average'
+    elif code == 'XDG':
+        rates = json.loads(web.get('http://dogecoinaverage.com/USD.json'))
+        return 1 / rates ['CAD']['24h_avg'], 'Dogecoin-24hr average'
 
     data, headers = web.get(base_url.format(code), dont_decode=True, return_headers=True)
     if headers['_http_status'] == 404:
@@ -108,3 +111,21 @@ def bitcoin(bot, trigger):
         return NOLIMIT
 
     display(bot, amount, 'BTC', to)
+
+@commands('xdg', 'dogecoin')
+@example('.xdg 20 EUR')
+def bitcoin(bot, trigger):
+    #if 2 args, 1st is number and 2nd is currency. If 1 arg, it's either the number or the currency.
+    to = trigger.group(4)
+    amount = trigger.group(3)
+    if not to:
+        to = trigger.group(3) or 'USD'
+        amount = 1
+
+    try:
+        amount = float(amount)
+    except:
+        bot.reply("Sorry, I didn't understand the input.")
+        return NOLIMIT
+
+    display(bot, amount, 'XDG', to)
