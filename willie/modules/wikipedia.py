@@ -66,7 +66,7 @@ def say_snippet(bot, server, query, show_url=True):
     page_name = query.replace('_', ' ')
     query = query.replace(' ', '_')
     snippet = mw_snippet(server, query)
-    msg = '[WIKIPEDIA] {} | "{}"'.format(page_name, snippet)
+    msg = '7[10Wikipedia7] {} | "{}"'.format(page_name, snippet)
     if show_url:
         msg = msg + ' | https://{}/wiki/{}'.format(server, query)
     bot.say(msg)
